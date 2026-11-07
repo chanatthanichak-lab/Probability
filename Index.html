@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ห้องทดลองความน่าจะเป็น | คณิตศาสตร์ ม.3</title>
+<style>
+:root{--navy:#312e81;--blue:#4f46e5;--sky:#e0f2fe;--teal:#0f9f8f;--ink:#242044;--muted:#64748b;--paper:#fff7ed;--line:#e9d5ff;--gold:#f59e0b}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.6}
+header{background:linear-gradient(120deg,#7c3aed,#ec4899 55%,#fb923c);color:white;padding:34px 20px 30px;position:relative;overflow:hidden}header:after{content:"✦  ✧  ★  ✦";position:absolute;right:4%;top:18px;font-size:2.4rem;color:#ffffff55;letter-spacing:12px}.hero-row{display:flex;align-items:center;gap:18px}.mascot{font-size:clamp(3rem,7vw,5.2rem);filter:drop-shadow(0 7px 5px #4c1d9580);animation:bob 2.5s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-9px) rotate(5deg)}}
+.wrap{max-width:1080px;margin:auto;padding:0 18px}
+.eyebrow{font-size:.85rem;letter-spacing:.08em;opacity:.85;font-weight:700}
+h1{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.2;margin:8px 0}
+header p{margin:10px 0 0;max-width:760px;color:#e0eaff}
+main{padding:24px 0 56px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.card{background:white;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 10px 28px #7c3aed12;position:relative;overflow:hidden}.card h2{color:#6d28d9}.card:nth-child(4n+1){border-top:5px solid #fb7185}.card:nth-child(4n+2){border-top:5px solid #38bdf8}.card:nth-child(4n+3){border-top:5px solid #a78bfa}
+.card h2{font-size:1.2rem;margin:0 0 12px;color:var(--navy)}
+.full{grid-column:1/-1}.muted{color:var(--muted);font-size:.94rem}
+.pill{display:inline-block;background:var(--sky);color:#1e40af;padding:3px 10px;border-radius:99px;font-size:.8rem;font-weight:700}
+.formrow{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0}
+label{font-weight:650}select,input[type=range]{accent-color:var(--blue)}
+select,button{font:inherit;border-radius:10px;border:1px solid #cbd5e1;padding:9px 12px;background:white;color:var(--ink)}
+button{background:linear-gradient(110deg,#7c3aed,#ec4899);color:white;border:0;font-weight:700;cursor:pointer;transition:.15s;box-shadow:0 4px 10px #7c3aed25}
+button:hover{filter:brightness(.93);transform:translateY(-1px)}button.secondary{background:#e2e8f0;color:#1e293b}
+button:disabled{opacity:.55;cursor:wait}
+.die-wrap{display:flex;justify-content:center;align-items:center;min-height:150px}
+.die{width:104px;height:104px;border-radius:22px;background:linear-gradient(145deg,#fff,#e8efff);border:3px solid #93c5fd;box-shadow:0 10px 24px #1e40af20;display:grid;place-items:center;font-size:4.3rem;color:#1d4ed8}
+.die.roll{animation:shake .16s infinite alternate}
+@keyframes shake{from{transform:rotate(-9deg) scale(.96)}to{transform:rotate(9deg) scale(1.04)}}
+.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}
+.metric{background:#f1f5f9;border-radius:12px;padding:11px;text-align:center}
+.metric strong{display:block;font-size:1.35rem;color:var(--navy);font-variant-numeric:tabular-nums}
+.metric span{font-size:.78rem;color:var(--muted)}
+canvas{width:100%;height:250px;display:block}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.85rem;color:var(--muted)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+.explain{background:linear-gradient(100deg,#fdf2f8,#eff6ff);border-left:5px solid #ec4899;padding:12px 14px;border-radius:12px;margin-top:12px}
+.formula{font-size:1.35rem;text-align:center;background:linear-gradient(100deg,#f5f3ff,#fff1f2);border:2px dashed #c4b5fd;border-radius:14px;padding:12px;margin:12px 0;color:#6d28d9;font-weight:750}
+ol.quiz{padding-left:22px}ol.quiz li{padding:0 0 14px 4px}
+details{margin-top:8px;background:#f8fafc;border-radius:9px;padding:9px 12px}
+summary{cursor:pointer;color:#1d4ed8;font-weight:700}
+.feedback{font-weight:700;margin-left:8px}
+footer{text-align:center;color:var(--muted);font-size:.85rem;padding:20px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.full{grid-column:auto}.metrics{grid-template-columns:1fr 1fr 1fr}.card{padding:16px}}
+</style>
+</head>
+<body>
+<header><div class="wrap">
+<div class="hero-row"><div><div class="eyebrow">คณิตศาสตร์ • ระดับชั้นมัธยมศึกษาปีที่ 3</div>
+<h1>🎲 ห้องทดลองความน่าจะเป็น</h1>
+<p>มาผจญภัยไปกับ “น้องพี” นักสำรวจตัวจิ๋ว ทดลองสุ่ม วิเคราะห์ผล และค้นหาคำตอบด้วยคณิตศาสตร์!</p></div><div class="mascot" aria-label="มาสคอตน้องพี">🦊</div></div>
+</div></header>
+<main class="wrap">
+<section class="card full">
+<span class="pill">🌈 เป้าหมายการเรียนรู้</span> <span style="float:right;font-size:1.8rem" aria-hidden="true">🐣</span>
+<h2 style="margin-top:9px">เมื่อจบกิจกรรม นักเรียนสามารถอธิบายและวิเคราะห์ความน่าจะเป็นได้</h2>
+<ul><li>ระบุผลลัพธ์ทั้งหมดที่เป็นไปได้จากการทอยลูกเต๋า 1 ลูก</li><li>คำนวณความน่าจะเป็นของเหตุการณ์จากจำนวนผลลัพธ์ที่สนใจ</li><li>เปรียบเทียบความน่าจะเป็นทางทฤษฎีกับผลการทดลอง และอธิบายความแตกต่างได้</li></ul>
+</section>
+<div class="grid" style="margin-top:18px">
+<section class="card">
+<h2>1. เลือกเหตุการณ์ที่ต้องการทดลอง</h2>
+<p class="muted">สมมติว่าลูกเต๋าเป็นลูกเต๋ามาตรฐาน มีโอกาสออกแต่ละหน้าเท่ากัน</p>
+<div class="formrow"><label for="event">เหตุการณ์:</label>
+<select id="event">
+<option value="even">ออกเลขคู่ (2, 4, 6)</option>
+<option value="gt4">ออกมากกว่า 4 (5, 6)</option>
+<option value="prime">ออกจำนวนเฉพาะ (2, 3, 5)</option>
+<option value="one">ออกเลข 1</option>
+</select></div>
+<div class="die-wrap"><div class="die" id="die" aria-label="ลูกเต๋า">⚀</div></div>
+<div class="formrow" style="justify-content:center">
+<button id="roll">🎲 ทอย 1 ครั้ง</button><button id="reset" class="secondary">เริ่มใหม่</button>
+</div>
+<div class="explain" id="eventExplain">เหตุการณ์เลขคู่มีผลลัพธ์ที่สนใจ 3 หน้า จากทั้งหมด 6 หน้า</div>
+<div class="formula" id="formula">P(เลขคู่) = 3/6 = 1/2 = 50%</div>
+</section>
+<section class="card">
+<h2>2. ทดลองหลายครั้ง</h2>
+<p class="muted">เลื่อนเพื่อกำหนดจำนวนครั้ง แล้วกดปุ่มจำลอง ระบบจะสุ่มทอยและอัปเดตกราฟทันที</p>
+<div class="formrow"><label for="trials">จำนวนครั้ง: <strong id="trialLabel">100</strong> ครั้ง</label></div>
+<input id="trials" type="range" min="10" max="1000" step="10" value="100" style="width:100%">
+<div class="formrow"><button id="simulate">▶ จำลองการทอย</button><span id="status" class="muted" aria-live="polite">พร้อมทดลอง</span></div>
+<div class="metrics">
+<div class="metric"><strong id="count">0</strong><span>ครั้งที่เข้าเหตุการณ์</span></div>
+<div class="metric"><strong id="freq">0%</strong><span>ความถี่สัมพัทธ์</span></div>
+<div class="metric"><strong id="theory">50%</strong><span>ค่าทางทฤษฎี</span></div>
+</div>
+</section>
+<section class="card full">
+<h2>3. กราฟเปรียบเทียบผลการทดลอง</h2>
+<p class="muted">แท่งสีน้ำเงินคือความถี่สัมพัทธ์จากการทดลอง ส่วนเส้นประสีเขียวคือค่าความน่าจะเป็นทางทฤษฎี</p>
+<canvas id="chart" width="900" height="290" role="img" aria-label="กราฟเปรียบเทียบความถี่สัมพัทธ์กับความน่าจะเป็นทางทฤษฎี"></canvas>
+<div class="legend"><span><i class="dot" style="background:#2563eb"></i>ผลการทดลอง</span><span><i class="dot" style="background:#0f766e"></i>ค่าทางทฤษฎี</span></div>
+<div class="explain" id="analysis">เริ่มจำลองเพื่อดูว่าผลการทดลองเข้าใกล้ค่าทางทฤษฎีมากน้อยเพียงใด</div>
+</section>
+<section class="card full">
+<h2>สรุปความรู้</h2>
+<p>เมื่อผลลัพธ์ทุกแบบมีโอกาสเกิดเท่ากัน ความน่าจะเป็นของเหตุการณ์คำนวณได้จาก</p>
+<div class="formula">P(E) = จำนวนผลลัพธ์ที่สนใจ ÷ จำนวนผลลัพธ์ทั้งหมด</div>
+<p>ค่าความน่าจะเป็นอยู่ระหว่าง 0 ถึง 1 (หรือ 0% ถึง 100%) ค่าใกล้ 0 หมายถึงเกิดได้ยาก ส่วนค่าใกล้ 1 หมายถึงมีโอกาสเกิดสูง</p>
+<p><strong>ข้อสังเกต:</strong> เมื่อทดลองจำนวนครั้งมากขึ้น ความถี่สัมพัทธ์มักมีแนวโน้มเข้าใกล้ค่าทางทฤษฎี แต่ไม่จำเป็นต้องเท่ากันทุกครั้ง</p>
+</section>
+<section class="card full">
+<h2>4. ภารกิจท้าทายกับน้องพี 🦊</h2>
+<p class="muted">ลองคิดและคำนวณก่อนเปิดดูเฉลย แต่ละข้อมีหลายขั้นตอนและใช้การนับผลลัพธ์ที่เป็นไปได้</p>
+<ol class="quiz">
+<li><strong>ภารกิจลูกเต๋าคู่:</strong> ทอยลูกเต๋ามาตรฐาน 2 ลูกพร้อมกัน 1 ครั้ง จงหาความน่าจะเป็นที่ผลรวมของแต้มเท่ากับ 8
+<details><summary>💡 ดูแนวคิดและเฉลย</summary>
+ผลลัพธ์ทั้งหมดมี 6 × 6 = 36 แบบ (พิจารณาลูกเต๋าแยกกัน) ผลรวมเป็น 8 ได้แก่ (2,6), (3,5), (4,4), (5,3), (6,2) มี 5 แบบ ดังนั้น P(ผลรวมเป็น 8) = 5/36 ≈ 13.89%
+</details></li>
+<li><strong>ภารกิจถุงลูกบอล:</strong> ในถุงมีลูกบอลสีแดง 4 ลูก และสีน้ำเงิน 3 ลูก สุ่มหยิบ 2 ลูกทีละลูกโดยไม่ใส่คืน จงหาความน่าจะเป็นที่จะได้ลูกบอลสีแดงทั้ง 2 ลูก
+<details><summary>💡 ดูแนวคิดและเฉลย</summary>
+ครั้งแรกได้สีแดงมีโอกาส 4/7 เมื่อไม่ใส่คืน จะเหลือลูกบอล 6 ลูก เป็นสีแดง 3 ลูก โอกาสได้สีแดงครั้งที่สองจึงเป็น 3/6 ดังนั้น P = (4/7) × (3/6) = 12/42 = 2/7 ≈ 28.57%
+</details></li>
+<li><strong>ภารกิจอย่างน้อยหนึ่งครั้ง:</strong> ทอยลูกเต๋ามาตรฐาน 2 ลูก จงหาความน่าจะเป็นที่จะมีลูกเต๋าออกเลข 6 อย่างน้อย 1 ลูก
+<details><summary>💡 ดูแนวคิดและเฉลย</summary>
+ใช้เหตุการณ์ตรงข้าม: “ไม่มีลูกใดออก 6” ลูกเต๋าแต่ละลูกมีโอกาสไม่ออก 6 เท่ากับ 5/6 ดังนั้นโอกาสที่ทั้งสองลูกไม่ออก 6 คือ (5/6) × (5/6) = 25/36 จึงได้ P(อย่างน้อยหนึ่งลูกออก 6) = 1 − 25/36 = 11/36 ≈ 30.56%
+</details></li>
+</ol>
+<div class="explain">⭐ เคล็ดลับ: อ่านเงื่อนไขให้ละเอียด โดยเฉพาะคำว่า “ไม่ใส่คืน” และ “อย่างน้อยหนึ่งครั้ง” เพราะมีผลต่อวิธีคำนวณ</div>
+</section>
+</div>
+</main>
+<footer>สื่อการเรียนรู้แบบโต้ตอบ • ความน่าจะเป็น • ม.3<br>หากเปิดจากหน้าพรีวิวแล้วปุ่มไม่ทำงาน ให้ดาวน์โหลดไฟล์ลงเครื่องและเปิดไฟล์ .html ด้วย Chrome, Safari หรือ Edge โดยตรง</footer>
+<script>
+const events={
+ even:{name:"เลขคู่",faces:[2,4,6],desc:"เลขคู่มีผลลัพธ์ที่สนใจ 3 หน้า ได้แก่ 2, 4 และ 6"},
+ gt4:{name:"เลขมากกว่า 4",faces:[5,6],desc:"เลขที่มากกว่า 4 มี 2 หน้า ได้แก่ 5 และ 6"},
+ prime:{name:"จำนวนเฉพาะ",faces:[2,3,5],desc:"จำนวนเฉพาะบนลูกเต๋ามี 3 หน้า ได้แก่ 2, 3 และ 5"},
+ one:{name:"เลข 1",faces:[1],desc:"มีผลลัพธ์ที่สนใจเพียง 1 หน้า คือเลข 1"}
+};
+const $=id=>document.getElementById(id);
+let selected=events.even, rolls=[], rolling=false;
+const faces=["⚀","⚁","⚂","⚃","⚄","⚅"];
+function probability(){return selected.faces.length/6}
+function updateInfo(){
+ const p=probability();
+ $("eventExplain").textContent=selected.desc+" จากทั้งหมด 6 หน้า";
+ $("formula").textContent=`P(${selected.name}) = ${selected.faces.length}/6 = ${(selected.faces.length/6).toFixed(2)} = ${(p*100).toFixed(2)}%`;
+ $("theory").textContent=(p*100).toFixed(1)+"%";
+ updateStats();drawChart();
+}
+function updateStats(){
+ const hits=rolls.filter(x=>selected.faces.includes(x)).length;
+ const f=rolls.length?hits/rolls.length:0;
+ $("count").textContent=hits;
+ $("freq").textContent=(f*100).toFixed(1)+"%";
+ if(rolls.length){
+  const diff=Math.abs(f-probability())*100;
+  $("analysis").textContent=`ทดลองแล้ว ${rolls.length} ครั้ง เกิดเหตุการณ์ ${hits} ครั้ง (ความถี่สัมพัทธ์ ${(f*100).toFixed(1)}%) ต่างจากค่าทางทฤษฎี ${diff.toFixed(1)} จุดเปอร์เซ็นต์ ${diff<5?"ผลที่ได้ใกล้เคียงค่าทางทฤษฎี":"ผลยังต่างจากค่าทางทฤษฎีได้ ซึ่งเป็นความผันแปรจากการสุ่ม"}`;
+ }else $("analysis").textContent="เริ่มจำลองเพื่อดูว่าผลการทดลองเข้าใกล้ค่าทางทฤษฎีมากน้อยเพียงใด";
+}
+function drawChart(){
+ const c=$("chart");
+ if(!c || typeof c.getContext!=="function") return;
+ const ctx=c.getContext("2d");
+ if(!ctx) return;
+ const w=c.width,h=c.height,left=58,right=25,top=18,bottom=42,gw=w-left-right,gh=h-top-bottom;
+ ctx.clearRect(0,0,w,h);
+ ctx.font="16px system-ui";ctx.textAlign="right";ctx.fillStyle="#64748b";
+ for(let i=0;i<=4;i++){
+  const y=top+gh*i/4;
+  ctx.strokeStyle="#e2e8f0";ctx.beginPath();ctx.moveTo(left,y);ctx.lineTo(w-right,y);ctx.stroke();
+  ctx.fillText((100-i*25)+"%",left-10,y+5);
+ }
+ const hits=rolls.filter(x=>selected.faces.includes(x)).length;
+ const rate=rolls.length?hits/rolls.length:0;
+ const theoryY=top+gh*(1-probability());
+ ctx.setLineDash([8,6]);ctx.strokeStyle="#0f9f8f";ctx.lineWidth=3;
+ ctx.beginPath();ctx.moveTo(left,theoryY);ctx.lineTo(w-right,theoryY);ctx.stroke();ctx.setLineDash([]);
+ const barH=gh*rate,barX=left+gw*.36,barW=gw*.28,barY=top+gh-barH;
+ ctx.fillStyle="#4f46e5";
+ // Plain fillRect works in older browsers and local-file viewing modes.
+ if(barH>0) ctx.fillRect(barX,barY,barW,barH);
+ ctx.fillStyle="#312e81";ctx.textAlign="center";ctx.font="bold 17px system-ui";
+ ctx.fillText(rolls.length?(rate*100).toFixed(1)+"%":"ยังไม่มีข้อมูล",left+gw*.5,Math.max(top+18,top+gh-barH-10));
+ ctx.fillStyle="#64748b";ctx.font="14px system-ui";
+ ctx.fillText("ความถี่สัมพัทธ์",left+gw*.5,h-10);
+}
+$("event").addEventListener("change",e=>{selected=events[e.target.value];updateInfo()});
+$("roll").addEventListener("click",()=>{if(rolling)return;rolling=true;$("die").classList.add("roll");$("roll").disabled=true;let count=0;const timer=setInterval(()=>{let n=Math.floor(Math.random()*6)+1;$("die").textContent=faces[n-1];count++;if(count>=9){clearInterval(timer);$("die").classList.remove("roll");$("roll").disabled=false;rolling=false;rolls.push(n);updateStats();drawChart()}},75)});
+$("reset").addEventListener("click",()=>{rolls=[];$("die").textContent="⚀";$("status").textContent="ล้างผลการทดลองแล้ว";updateStats();drawChart()});
+$("trials").addEventListener("input",e=>$("trialLabel").textContent=e.target.value);
+$("simulate").addEventListener("click",()=>{if(rolling)return;const total=+$("trials").value;rolls=[];$("simulate").disabled=true;$("status").textContent="กำลังจำลอง…";let i=0;const batch=()=>{let end=Math.min(i+Math.ceil(total/35),total);for(;i<end;i++)rolls.push(Math.floor(Math.random()*6)+1);updateStats();drawChart();if(i<total)setTimeout(batch,25);else{$("simulate").disabled=false;$("status").textContent=`จำลองครบ ${total} ครั้งแล้ว`}};batch()});
+window.addEventListener("resize",drawChart);
+try { updateInfo(); }
+catch(err) {
+ const msg=$("status");
+ if(msg) msg.textContent="กราฟไม่สามารถแสดงผลได้ แต่กิจกรรมยังใช้งานได้";
+ console.error("Probability activity initialization:",err);
+}
+</script>
+</body></html>
